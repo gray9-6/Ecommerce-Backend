@@ -1,0 +1,11 @@
+1. create the project , add the required dependency to create the project
+2. create the entity package, make the user class
+   a. make the user class to implements UserDetails
+   b. set the required fields to true
+3. adding the security feature
+   a. make the JwtUtil class :- this class have some functions(like to generate token and getting claims)
+   b. make the JwtRequest Filter class :- this class filters the every request one time when any user make a request to hit the api
+   c. make the UserDetailsServiceImpl class :- this class have a method loadUserByUserName , which gives the user details
+   d.
+
+4. creating Signup Rest API, Web Security config and admin account
