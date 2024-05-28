@@ -34,8 +34,25 @@ import java.util.Map;
  * Additionally, this filter handles preflight requests (OPTIONS) by setting the response status to 200 OK
  * if the request method is OPTIONS, indicating that the actual request can proceed.
  */
-@Component
+
+
+
+/**
+ * The {@code @Order} annotation is used to specify the order in which filters are applied in the filter chain.
+ * Filters with a lower order value are applied before filters with a higher order value.
+ *
+ * In this context, the {@code @Order(Ordered.HIGHEST_PRECEDENCE)} annotation indicates that the
+ * {@link SimpleCorsFilter} should be given the highest precedence in the filter chain.
+ *
+ * When multiple filters are configured in an application, the order in which they are applied is important
+ * for proper functioning. By setting the order to {@code Ordered.HIGHEST_PRECEDENCE}, this filter ensures
+ * that it is executed before any other filters in the chain.
+ *
+ * This is important for the SimpleCorsFilter because it needs to be applied to all incoming requests
+ * to handle CORS before any other filters process the request.
+ */
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@Component
 @Slf4j
 public class SimpleCorsFilter implements Filter {
 
@@ -68,6 +85,8 @@ public class SimpleCorsFilter implements Filter {
 
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+
+        Map<String,String> map = new HashMap<>();
 
         // Get the origin header from the request
         String originHeader = request.getHeader("origin");
